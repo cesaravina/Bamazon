@@ -17,11 +17,11 @@ connection.connect(function(err) {
     appStart();
 });
 
-console.log('------------------------------------------------');
+console.log('************************************************');
 console.log('Welcome to the Bamazon management interface');
-console.log('------------------------------------------------\n');
+console.log('************************************************\n');
 
-//builds startup menu for manangement interface
+//mrManager interface menu
 var appStart = function() {
     inquirer.prompt([{
         name: "Menu",
@@ -29,8 +29,6 @@ var appStart = function() {
         message: "What would you would like to do?",
         choices:['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product']
     }]).then(function(answer) {
-
-            // switch for different options
 
             switch(answer.Menu) {
                 case 'View Products for Sale': 
@@ -45,11 +43,10 @@ var appStart = function() {
                 case 'Add New Product':
                     newProduct();
                     break;
-            } // end of switch
-
-        }); // end of inquirer prompt function
+            } 
+        }); 
 }  
-    //Function to prompt user if they want to continue or end connection
+
     function appContinue() {
     inquirer.prompt({
                 name: "continue",
@@ -65,12 +62,12 @@ var appStart = function() {
             }); 
     };
 
-    //Lists the products for sale
+    //Items for sale
     function productsForSale() {
     connection.query('SELECT * FROM Products', function(err, res) {
-        console.log('---------------------------------');
+        console.log('*********************************');
         console.log('Bamazon Current Inventory');
-        console.log('---------------------------------\n');
+        console.log('*********************************\n');
         // New Table instance to format returned sql data
             var table = new Table({
                 head: ['ItemID', 'ProductName', 'Price', 'Quantity'],
@@ -87,9 +84,9 @@ var appStart = function() {
     //List the Products and then filters based on inventory < 5
     function lowInventory() {
     connection.query('SELECT * FROM Products', function(err, res) {
-        console.log('---------------------------------');
+        console.log('*********************************');
         console.log('Bamazon Low Inventory');
-        console.log('---------------------------------\n');
+        console.log('*********************************\n');
         // New Table instance to format returned sql data
             var table = new Table({
                 head: ['ItemID', 'ProductName', 'Price', 'Quantity'],
@@ -105,7 +102,7 @@ var appStart = function() {
         appStart();
         });
     }
-    //Function to add inventory to database
+    //Function to add inventory
     function addInventory() {
         connection.query('SELECT * FROM Products', function(err, res) {
         // New Table instance to format returned sql data
@@ -149,12 +146,10 @@ var appStart = function() {
                     });
 
                 });
-
-
                 
         });
     }
-    //Add a new product to the database
+    //Adding a new products
     function newProduct() {
         inquirer.prompt([{
             name: "product",
